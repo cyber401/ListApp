@@ -16,7 +16,7 @@ public class Categories {
         return CategoryName;
     }
 
-    public List<String> getCategoryItemList() {
+    public ArrayList<String> getCategoryItemList() {
         return CategoryItemList;
     }
 }

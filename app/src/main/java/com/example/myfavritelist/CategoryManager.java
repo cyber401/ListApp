@@ -30,13 +30,17 @@ public class CategoryManager {
         sharedPreferencesEditor.apply();
     }
 
-        public void retrieveData(){
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-                Map<String,?>  data = sharedPreferences.getAll();
-        //      ArrayList<Categories> category = new ArrayList<>();
-                for(Map.Entry<String, ?> entry : data.entrySet()){
-                    Categories categories = new Categories(entry.getKey(), new ArrayList<String>((HashSet)entry.getValue())); 
-                }
-
+        public ArrayList<Categories> retrieveData() {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            Map<String, ?> data = sharedPreferences.getAll();
+            ArrayList<Categories> category = new ArrayList<>();
+            for (Map.Entry<String, ?> entry : data.entrySet()) {
+                Categories categories = new Categories(entry.getKey(), new ArrayList<String>((HashSet) entry.getValue()));
+                category.add(categories);
+            }
+                return category;
         }
+
+
 }
+

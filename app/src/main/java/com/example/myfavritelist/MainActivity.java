@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton floatingActionButton;
-    EditText editText;
-    AlertDialog.Builder alertDialogBox;
     RecyclerView recyclerView;
     CategoryManager categoryManager = new CategoryManager(this);
     @Override
@@ -29,26 +30,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        editText = new EditText(this);
-         alertDialogBox = new AlertDialog.Builder(this);
-        floatingActionButton = findViewById(R.id.fab);
-        recyclerView = findViewById(R.id.categoryRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setRecyclerView();
+        FloatingActionButton floatingActionButton =  findViewById(R.id.fab);
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogBox.setTitle("Enter Category Name").setView(editText).
-                        setPositiveButton("Done", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                alertDialogBox.create().show();
+               showAlertDialog();
             }
         });
 
-
     }
 
-}
+    public void showAlertDialog(){
+        final EditText editText = new EditText(this);
+        editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        AlertDialog.Builder alertDialogBox = new AlertDialog.Builder(this);
+        alertDialogBox.setTitle("Enter Category Name").setView(editText).
+                setPositiveButton("Done", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Categories categories = new Categories(editText.getText().toString(), new ArrayList<String>());
+                        CategoryRecyclerAdapter categoryRecyclerAdapter = (CategoryRecyclerAdapter) recyclerView.getAdapter();
+                        categoryRecyclerAdapter.addCategory(categories);
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBox.create();
+        alertDialog.show();
+        }
+        public void setRecyclerView(){
+            ArrayList<Categories> data = categoryManager.retrieveData();
+            recyclerView = findViewById(R.id.categoryRecyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new CategoryRecyclerAdapter(data));
+        }
+    }
+
