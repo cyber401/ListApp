@@ -33,7 +33,8 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        holder.textView1.setText("1");
+        String pos = Integer.toString(position+1)+".";
+        holder.textView1.setText(pos);
         holder.textView2.setText(data.get(position).getCategoryName());
     }
 

@@ -50,12 +50,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Categories categories = new Categories(editText.getText().toString(), new ArrayList<String>());
+                        categoryManager.saveData(categories);
                         CategoryRecyclerAdapter categoryRecyclerAdapter = (CategoryRecyclerAdapter) recyclerView.getAdapter();
                         categoryRecyclerAdapter.addCategory(categories);
                     }
                 });
-        AlertDialog alertDialog = alertDialogBox.create();
-        alertDialog.show();
+       alertDialogBox.create().show();
         }
         public void setRecyclerView(){
             ArrayList<Categories> data = categoryManager.retrieveData();
