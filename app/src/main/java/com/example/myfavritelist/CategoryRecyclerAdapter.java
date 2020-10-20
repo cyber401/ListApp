@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 
-public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.CategoryViewHolder> {
+public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
 
     private ArrayList<Categories> data;
@@ -20,7 +20,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
     public void addCategory(Categories categories){
         data.add(categories);
-        notifyItemInserted(data.size() - 1);
+        notifyItemInserted(data.size() - 1);      // here in realtime our data gonna add in recycler view
     }
 
     @NonNull
@@ -33,23 +33,15 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        String pos = Integer.toString(position+1)+".";
-        holder.textView1.setText(pos);
-        holder.textView2.setText(data.get(position).getCategoryName());
+        String pos = Integer.toString(position+1)+"."; // here we are converting int to String
+        holder.getTextView1().setText(pos);
+        holder.getTextView2().setText(data.get(position).getCategoryName());
     }
-
 
     @Override
     public int getItemCount() {
         return data.size();
     }
 
-    class CategoryViewHolder extends RecyclerView.ViewHolder{
-        TextView textView1, textView2;
-        public CategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView1 = itemView.findViewById(R.id.textViewOne);
-            textView2 = itemView.findViewById(R.id.textViewTwo);
-        }
-    }
+
 }
