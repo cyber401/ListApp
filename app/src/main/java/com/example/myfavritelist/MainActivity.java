@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 });
        alertDialogBox.create().show();
         }
+
         public void setRecyclerView(){
             ArrayList<Categories> data = categoryManager.retrieveData();
             recyclerView = findViewById(R.id.categoryRecyclerView);
